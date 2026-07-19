@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>주혁이의 2026 하반기 가고시마 여행</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gamja+Flower&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FBF1E4;
+    --paper-2: #FFFCF7;
+    --ink: #3A2B24;
+    --ink-soft: #8A6F5E;
+    --sage: #C1793B;
+    --sage-bg: #F3E0C4;
+    --rust: #B0432E;
+    --rust-bg: #F5DCCF;
+    --line: #E8D5B8;
+    --radius: 14px;
+    --font-display: "Gamja Flower", "Gaegu", "Iowan Old Style", Georgia, serif;
+    --font-body: "Gaegu", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background-color:var(--paper);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg%3E%3Cpath d='M28 18 Q40 6 50 18 Q58 28 50 40 Q40 52 28 40 Q18 28 28 18 Z' fill='%23B0432E' opacity='0.09'/%3E%3Cpath d='M25 20 L50 34' stroke='%23B0432E' stroke-width='1' opacity='0.12' fill='none'/%3E%3Cpath d='M118 84 Q128 74 138 84 Q146 94 138 104 Q128 114 118 104 Q110 94 118 84 Z' fill='%23C1793B' opacity='0.10'/%3E%3Ccircle cx='90' cy='30' r='4' fill='%23C1793B' opacity='0.15'/%3E%3Ccircle cx='20' cy='120' r='5' fill='%23B0432E' opacity='0.12'/%3E%3Cpath d='M70 130 Q80 120 90 130 Q96 138 90 146 Q80 154 70 146 Q64 138 70 130 Z' fill='%238A6F5E' opacity='0.08'/%3E%3C/g%3E%3C/svg%3E");
+    background-size:160px 160px;
+    background-repeat:repeat;
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:430px;
+    margin:0 auto;
+    padding:0 0 48px;
+    min-height:100vh;
+  }
+  header.hero{
+    background:var(--paper);
+    padding:20px 18px 14px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px; flex-wrap:wrap;}
+  .lang-toggle{display:flex; gap:6px; flex-shrink:0;}
+  .lang-btn{
+    font-family:var(--font-body); font-size:13px; font-weight:700;
+    padding:5px 10px; border-radius:20px; border:1.5px solid var(--sage);
+    background:var(--paper-2); color:var(--sage); cursor:pointer;
+  }
+  .lang-btn.active{background:var(--sage); color:#fff;}
+  .hero-top h1{
+    font-family:var(--font-display);
+    font-size:22px; font-weight:800; margin:0;
+    letter-spacing:0.2px;
+  }
+  .badge{
+    font-size:14px; padding:5px 11px; border-radius:20px;
+    background:var(--sage-bg); color:var(--sage); white-space:nowrap;
+    font-weight:800;
+  }
+  .hero-sub{font-size:15px; color:var(--ink-soft); margin:4px 0 0; font-weight:600;}
+
+  section{padding:20px 18px;}
+
+  .tabs{
+    position:sticky; top:0; z-index:9;
+    display:flex; gap:6px; padding:10px 18px;
+    background:var(--paper); border-bottom:1px solid var(--line);
+    overflow-x:auto;
+  }
+  .tab-btn{
+    font-family:var(--font-body); font-size:14px; font-weight:700;
+    padding:8px 14px; border-radius:20px; border:1.5px solid var(--sage);
+    background:var(--paper-2); color:var(--sage); cursor:pointer; white-space:nowrap;
+  }
+  .tab-btn.active{background:var(--sage); color:#fff;}
+  h2.section-title{
+    font-family:var(--font-display);
+    font-size:19px; font-weight:700; margin:0 0 10px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .hint{font-size:14px; color:var(--ink-soft); margin:-4px 0 14px; font-weight:600;}
+
+  /* weather */
+  .weather-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .weather-card{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius);
+    padding:12px 14px; display:flex; align-items:center; gap:10px;
+    box-shadow:0 2px 8px rgba(176,67,46,0.06);
+  }
+  .weather-card .icon{font-size:22px;}
+  .weather-card .label{font-size:14px; color:var(--ink-soft); margin:0; font-weight:700;}
+  .weather-card .temp{font-size:21px; font-weight:800; margin:2px 0 0;}
+  .weather-card .desc{font-size:12px; color:var(--ink-soft); margin:2px 0 0; font-weight:600;}
+  .weather-grid-3{grid-template-columns:1fr 1fr 1fr;}
+  .weather-grid-3 .weather-card{flex-direction:column; align-items:flex-start; gap:4px; padding:10px 10px;}
+  .weather-grid-3 .weather-card .icon{font-size:20px;}
+  .weather-grid-3 .weather-card .temp{font-size:16px;}
+
+  .month-label{margin:14px 0 8px; font-weight:800; color:var(--sage); font-size:15px;}
+  .clima-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:4px;}
+  .clima-cell{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:10px;
+    padding:8px 4px; text-align:center;
+  }
+  .clima-date{display:block; font-size:12px; color:var(--ink-soft); font-weight:700;}
+  .clima-temp{display:block; font-size:13.5px; font-weight:800; margin-top:3px;}
+  .clima-temp .hi{color:var(--rust);}
+  .clima-temp .lo{color:var(--sage);}
+
+  /* currency */
+  .fx-box{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius);
+    padding:14px; display:flex; flex-direction:column; gap:10px;
+  }
+  .fx-row{display:flex; align-items:center; gap:8px;}
+  .fx-row input{
+    flex:1; padding:10px 12px; border-radius:9px; border:1px solid var(--line);
+    font-size:16px; font-weight:700; font-family:var(--font-body); background:var(--paper); color:var(--ink);
+  }
+  .fx-row .arrow{color:var(--ink-soft); font-size:15px; font-weight:700;}
+  .fx-row .out{font-size:18px; font-weight:800; min-width:100px; text-align:right;}
+  .fx-toggle{
+    display:flex; align-items:center; gap:8px; font-size:14.5px; font-weight:600;
+    color:var(--ink); cursor:pointer; padding-top:2px;
+  }
+  .fx-toggle input{width:18px; height:18px; accent-color:var(--sage); cursor:pointer;}
+
+  .goal-item{
+    display:flex; align-items:center; gap:10px; font-size:14.5px; font-weight:600;
+    color:var(--ink); cursor:pointer; padding:4px 0;
+  }
+  .goal-item input{width:19px; height:19px; accent-color:var(--rust); cursor:pointer; flex-shrink:0;}
+  .goal-item.done span{text-decoration:line-through; color:var(--ink-soft);}
+  .goal-row{margin-top:10px; padding-top:10px; border-top:1px dashed var(--rust); display:flex; flex-direction:column; gap:2px;}
+
+  /* concept tags */
+  .concept-box{
+    background:var(--rust-bg); border-radius:var(--radius); padding:14px 16px;
+  }
+  .concept-box p{font-size:16px; margin:0 0 8px; color:var(--ink); font-weight:700;}
+  .concept-title{
+    font-family:var(--font-display); font-size:18px; margin:0 0 10px; font-weight:700;
+    color:var(--rust);
+  }
+  .tag-row{display:flex; gap:6px; flex-wrap:wrap;}
+  .tag{
+    font-size:14px; padding:5px 11px; border-radius:20px;
+    background:var(--paper-2); color:var(--ink-soft); font-weight:700;
+  }
+  .tag.laptop{background:var(--sage); color:#fff; font-weight:700;}
+
+  /* day cards */
+  .day-card{
+    background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius);
+    margin-bottom:14px; overflow:hidden; position:relative;
+    box-shadow:0 3px 10px rgba(176,67,46,0.08);
+  }
+  .tape{
+    position:absolute; top:-6px; left:20px; width:54px; height:16px;
+    background:var(--rust); opacity:0.85; transform:rotate(-3deg);
+    border-radius:2px;
+  }
+  .day-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px 10px; gap:10px;
+  }
+  .day-head h3{
+    font-family:var(--font-display); font-size:20px; margin:0; font-weight:700;
+  }
+  .map-link{
+    font-size:14px; color:var(--sage); text-decoration:none; font-weight:700;
+    white-space:nowrap; display:flex; align-items:center; gap:4px;
+    border:1.5px solid var(--sage); padding:5px 10px; border-radius:20px;
+  }
+  .slot{
+    display:flex; gap:10px; padding:10px 16px; border-top:1px solid var(--line);
+    align-items:flex-start;
+  }
+  .slot .time{font-size:14px; color:var(--ink-soft); min-width:36px; padding-top:2px; font-weight:800;}
+  .slot .desc{font-size:16px; flex:1; line-height:1.6; font-weight:600;}
+  .slot .desc a{color:var(--sage); text-decoration:none; border-bottom:1.5px solid var(--sage-bg); font-weight:700;}
+  .slot .temp{font-size:14.5px; color:var(--ink-soft); white-space:nowrap; padding-top:2px; font-weight:700;}
+  .mini-badge{
+    font-size:12px; padding:3px 7px; border-radius:8px; background:var(--sage); color:#fff;
+    white-space:nowrap; margin-left:4px; font-weight:700;
+  }
+  .airport-note{
+    padding:10px 16px 4px; font-size:14px; color:var(--ink-soft); border-top:1px solid var(--line); font-weight:600;
+  }
+  .airport-opt{padding:6px 16px; display:flex; gap:8px; align-items:flex-start;}
+  .airport-opt .tag2{
+    font-size:13px; padding:3px 9px; border-radius:8px; background:var(--rust-bg); color:var(--rust);
+    font-weight:800; white-space:nowrap; margin-top:1px;
+  }
+  .airport-opt p{font-size:16px; margin:0; flex:1; font-weight:600;}
+
+  .memo-wrap{padding:10px 16px 14px; border-top:1px solid var(--line);}
+  .memo-wrap textarea{
+    width:100%; min-height:56px; border:1px solid var(--line); border-radius:9px;
+    padding:9px 11px; font-size:15px; font-weight:600; font-family:var(--font-body);
+    background:var(--paper); color:var(--ink); resize:vertical;
+  }
+  .memo-actions{display:flex; align-items:center; gap:10px; margin-top:6px;}
+  .memo-save{
+    font-family:var(--font-body); font-size:13.5px; font-weight:700;
+    padding:6px 14px; border-radius:20px; border:none;
+    background:var(--sage); color:#fff; cursor:pointer;
+  }
+  .memo-status{font-size:13px; color:var(--ink-soft); font-weight:600;}
+
+  .food-block{padding:10px 16px 12px; border-top:1px solid var(--line); background:#FBF9F4;}
+  .food-block h4{
+    font-family:var(--font-display); font-size:15px; margin:0 0 8px; font-weight:700;
+    display:flex; align-items:center; gap:5px;
+  }
+  .food-item{margin-bottom:8px; padding:8px 10px; background:var(--paper-2); border:1px solid var(--line); border-radius:10px;}
+  .food-item:last-child{margin-bottom:0;}
+  .food-head{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .food-name{font-size:14.5px; font-weight:700; color:var(--ink);}
+  .food-pin{
+    font-size:12px; color:var(--sage); text-decoration:none; font-weight:700;
+    white-space:nowrap; border:1.5px solid var(--sage); padding:2px 8px; border-radius:16px;
+  }
+  .food-desc{font-size:13px; color:var(--ink-soft); margin:4px 0 0; font-weight:600;}
+
+  footer{padding:24px 18px 0; text-align:center; font-size:14px; color:var(--ink-soft); font-weight:600;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <div class="hero-top">
+      <h1 data-i18n="hero_title">ジュヒョクの2026年下半期 鹿児島旅行</h1>
+      <div class="lang-toggle">
+        <button type="button" class="lang-btn" data-lang="ja">日本語</button>
+        <button type="button" class="lang-btn" data-lang="ko">한국어</button>
+      </div>
+    </div>
+    <div class="hero-top" style="margin-top:6px;">
+      <span class="badge">🌋 <span data-i18n="hero_badge">日程未定・8〜10月基準</span></span>
+    </div>
+    <p class="hero-sub" data-i18n="hero_sub">3泊4日・天文館テイストの旅</p>
+  </header>
+
+  <nav class="tabs">
+    <button type="button" class="tab-btn active" data-tab="schedule"><span data-i18n="tab_schedule">スケジュール</span></button>
+    <button type="button" class="tab-btn" data-tab="weather"><span data-i18n="tab_weather">天気</span></button>
+    <button type="button" class="tab-btn" data-tab="needed"><span data-i18n="tab_needed">クーポンまとめ</span></button>
+    <button type="button" class="tab-btn" data-tab="cafe"><span data-i18n="tab_cafe">カフェガイド</span></button>
+  </nav>
+
+  <div class="tab-panel" data-panel="schedule">
+
+  <section>
+    <h2 class="section-title"><span>🌤</span><span data-i18n="weather_title">今日・明日・明後日の天気</span></h2>
+    <p class="hint" id="weatherUpdatedHint" data-i18n="weather_loading">天気データを読み込み中...</p>
+    <div class="weather-grid weather-grid-3" id="weatherLiveGrid"></div>
+  </section>
+
+  <section>
+    <h2 class="section-title"><span>💴</span><span data-i18n="fx_title">商品価格計算機(免税)</span></h2>
+    <p class="hint" data-i18n="fx_hint">参考用(100円≈931ウォン)、実際の両替時は手数料で変わることがあります</p>
+    <div class="fx-box">
+      <div class="fx-row">
+        <input type="number" id="jpyInput" data-i18n-ph="fx_placeholder" placeholder="商品価格(円、税抜)">
+        <span class="arrow">→</span>
+        <span class="out"><span id="krwOutput">0</span> <span data-i18n="fx_unit">ウォン</span></span>
+      </div>
+      <label class="fx-toggle">
+        <input type="checkbox" id="taxToggle">
+        <span data-i18n="fx_toggle_label">免税10%適用(還付後価格で表示)</span>
+      </label>
+    </div>
+  </section>
+
+  <section>
+    <div class="concept-box">
+      <h3 class="concept-title" data-i18n="concept_box_title">今回の旅で大切にしたいこと</h3>
+      <p><span>☕</span> <span data-i18n="concept_text">買い物よりコーヒーを飲み、本を読みながらゆったり過ごす時間中心</span></p>
+      <div class="tag-row">
+        <span class="tag" data-i18n="tag_river">海沿い散歩</span>
+        <span class="tag" data-i18n="tag_cafe">カフェ巡り</span>
+        <span class="tag" data-i18n="tag_book">独立系書店</span>
+        <span class="tag laptop">💻 <span data-i18n="tag_laptop">PC作業に最適</span></span>
+      </div>
+      <div class="goal-row">
+        <label class="goal-item">
+          <input type="checkbox" class="goal-check" data-goal="goal2">
+          <span data-i18n="goal2_text">1日1冊、本を読む</span>
+        </label>
+        <label class="goal-item">
+          <input type="checkbox" class="goal-check" data-goal="goal3">
+          <span data-i18n="goal3_text">今後の事業計画とタイムラインを完成させる</span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:4px;">
+    <h2 class="section-title"><span>🗓</span><span data-i18n="schedule_title">スケジュール</span></h2>
+
+    <!-- Day 1 -->
+    <div class="day-card">
+      <div class="tape"></div>
+      <div class="day-head">
+        <h3 data-i18n="d1_title">1日目・到着(午後)</h3>
+        <a class="map-link" target="_blank" href="https://www.google.com/maps/dir/Kagoshima+Airport/Danken+Coffee+Tenmonkan/Tenmonkan+Mujaki"><span data-i18n="maplink">地図を見る</span></a>
+      </div>
+      <div class="slot"><span class="time" data-i18n="w_afternoon">午後</span><span class="desc"><span data-i18n="d1s1a">鹿児島空港着、リムジンバスで天文館へ移動(約40分)、宿泊先チェックイン後アーケードを散歩しながら</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJqwkvSu9hPjURpvQcGGJLols" target="_blank">Danken Coffee Tenmonkan</a><span data-i18n="d1s1b">でコーヒー</span></span><span class="temp">31°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_evening">夕方</span><span class="desc"><a href="https://www.google.com/maps/place/?q=place_id:ChIJW32vWKpgPjURchzAaVmH_-E" target="_blank">天文館むじゃき</a><span data-i18n="d1s2a">で元祖白熊をひとつ、続けて夕食は</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJtXgWk0tnPjUR4Gn_0OEL87M" target="_blank">黒田</a><span data-i18n="d1s2b">でとんかつ</span></span><span class="temp">28°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_night">夜</span><span class="desc" data-i18n="d1s3">天文館アーケードの夜景散歩、コンビニでビール一缶</span><span class="temp">24°C</span></div>
+      <div class="food-block">
+        <h4><span>🍽</span><span data-i18n="food_title">おすすめ食事処</span></h4>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">黒田(Kuroda)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJtXgWk0tnPjUR4Gn_0OEL87M">📍</a></div>
+          <p class="food-desc" data-i18n="d1f1">黒豚ロースかつ定食+ドリンク 約2,200円</p>
+        </div>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">こなつ屋(Kokinta)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJKToVpKtgPjURoY53YR4Hx_c">📍</a></div>
+          <p class="food-desc" data-i18n="d1f2">鹿児島ラーメン+ドリンク 約1,100円</p>
+        </div>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">Fukuya Black Pork</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJucACFJ5hPjUR8i5O4ScccRg">📍</a></div>
+          <p class="food-desc" data-i18n="d1f3">とんかつ&しゃぶしゃぶ定食+ドリンク 約2,600円</p>
+        </div>
+      </div>
+      <div class="memo-wrap">
+        <textarea data-day="day1" data-i18n-ph="memo_ph1" placeholder="1日目メモ"></textarea>
+        <div class="memo-actions">
+          <button type="button" class="memo-save" data-save="day1"><span data-i18n="memo_save_btn">保存</span></button>
+          <span class="memo-status" data-status="day1"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-card">
+      <div class="tape"></div>
+      <div class="day-head">
+        <h3 data-i18n="d2_title">2日目・天文館カフェデー</h3>
+        <a class="map-link" target="_blank" href="https://www.google.com/maps/dir/Limelight+Coffee+House+Kagoshima/BLUE+BEANS+ROASTERY+Kagoshima/books+selva+Kagoshima/Coffeer+Kagoshima"><span data-i18n="maplink">地図を見る</span></a>
+      </div>
+      <div class="slot"><span class="time" data-i18n="w_morning">午前</span><span class="desc"><a href="https://www.google.com/maps/place/?q=place_id:ChIJZX-tp6pgPjURAS7hEQqzybc" target="_blank">Limelight Coffee House</a><span data-i18n="d2s1a">でハンドドリップ、鹿児島湾沿いを</span><a href="https://www.google.com/maps/search/?api=1&query=Dolphin+Port+Kagoshima" target="_blank">ドルフィンポート</a><span data-i18n="d2s1b">まで海沿い散歩、桜島を眺める</span></span><span class="temp">26°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_afternoon">午後</span><span class="desc"><a href="https://www.google.com/maps/place/?q=place_id:ChIJh-MS5UZfPjURzdQdoRXvSn0" target="_blank">BLUE BEANS ROASTERY</a><span class="mini-badge">💻</span><span data-i18n="d2s2a">、古書店</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJrYVdZINfPjUR2asWbhGqIbY" target="_blank">books selva</a><span data-i18n="d2s2b">を覗いて、</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJr475NwBfPjURm5bQ_TELJjU" target="_blank">Coffeer</a><span data-i18n="d2s2c">でティータイム</span></span><span class="temp">31°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_evening">夕方</span><span class="desc" data-i18n="d2s3">近所の居酒屋で夕食</span><span class="temp">28°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_night">夜</span><span class="desc"><a href="https://www.google.com/maps/place/?q=place_id:ChIJj_EY4MphPjURaG0O9HteeZw" target="_blank">cafe&bar SiSi</a><span data-i18n="d2s4">で猫グッズに囲まれて一杯</span></span><span class="temp">24°C</span></div>
+      <div class="food-block">
+        <h4><span>🍽</span><span data-i18n="food_title">おすすめ食事処</span></h4>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">黒福多(Kurobuta)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJaVGU6qpgPjUR54JGTZnRLj4">📍</a></div>
+          <p class="food-desc" data-i18n="d2f1">黒豚しゃぶしゃぶ+ドリンク 約3,200円</p>
+        </div>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">麺屋一徳</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJbzia_jxhPjURR8hMabfpQak">📍</a></div>
+          <p class="food-desc" data-i18n="d2f2">豚骨ラーメン+ドリンク 約1,200円</p>
+        </div>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">油そば専門店 自来也</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJ35NxJ_pnPjURr95KPyVP6_Y">📍</a></div>
+          <p class="food-desc" data-i18n="d2f3">油そば+ドリンク 約1,000円</p>
+        </div>
+      </div>
+      <div class="memo-wrap">
+        <textarea data-day="day2" data-i18n-ph="memo_ph2" placeholder="2日目メモ"></textarea>
+        <div class="memo-actions">
+          <button type="button" class="memo-save" data-save="day2"><span data-i18n="memo_save_btn">保存</span></button>
+          <span class="memo-status" data-status="day2"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-card">
+      <div class="tape"></div>
+      <div class="day-head">
+        <h3 data-i18n="d3_title">3日目・桜島日帰り旅</h3>
+        <a class="map-link" target="_blank" href="https://www.google.com/maps/dir/Sakurajima+Ferry+Terminal+Kagoshima/Sakurajima+Coffee+%26+Bakery/Shiroyama+Park+Observation+Deck+Kagoshima"><span data-i18n="maplink">地図を見る</span></a>
+      </div>
+      <div class="slot"><span class="time" data-i18n="w_morning">午前</span><span class="desc"><span data-i18n="d3s1a">フェリーで桜島へ(約15分)、</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJhV-hg3j2PjUR5Rw6zqO7pwo" target="_blank">Sakurajima Coffee & Bakery</a><span data-i18n="d3s1b">で朝のコーヒー</span></span><span class="temp">26°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_afternoon">午後</span><span class="desc"><span data-i18n="d3s2a">溶岩なぎさ遊歩道を散策し、</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJYWBPDQBfPjURUTqp3GOeU0U" target="_blank">桜島カフェ</a><span data-i18n="d3s2b">で抹茶ソフト</span></span><span class="temp">31°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_evening">夕方</span><span class="desc"><span data-i18n="d3s3a">市内に戻り、</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJQ6cuZ-RdPjURn0RJrwC_iIw" target="_blank">城山展望台</a><span data-i18n="d3s3b">で桜島の夕景</span></span><span class="temp">28°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_night">夜</span><span class="desc" data-i18n="d3s4">近所の銭湯・温泉で温まって一日を締めくくる</span><span class="temp">24°C</span></div>
+      <div class="food-block">
+        <h4><span>🍽</span><span data-i18n="food_title">おすすめ食事処</span></h4>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">Minato Cafe(桜島)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJ75nh48lfPjURpI8321J4-eg">📍</a></div>
+          <p class="food-desc" data-i18n="d3f1">桜島噴火カレー+ドリンク 約1,500円</p>
+        </div>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">Fukuya Black Pork</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJucACFJ5hPjUR8i5O4ScccRg">📍</a></div>
+          <p class="food-desc" data-i18n="d3f2">とんかつ&しゃぶしゃぶ定食+ドリンク 約2,600円</p>
+        </div>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">こなつ屋(Kokinta)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJKToVpKtgPjURoY53YR4Hx_c">📍</a></div>
+          <p class="food-desc" data-i18n="d3f3">鹿児島ラーメン+ドリンク 約1,100円</p>
+        </div>
+      </div>
+      <div class="memo-wrap">
+        <textarea data-day="day3" data-i18n-ph="memo_ph3" placeholder="3日目メモ"></textarea>
+        <div class="memo-actions">
+          <button type="button" class="memo-save" data-save="day3"><span data-i18n="memo_save_btn">保存</span></button>
+          <span class="memo-status" data-status="day3"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-card">
+      <div class="tape"></div>
+      <div class="day-head">
+        <h3 data-i18n="d4_title">4日目・最終日&夜便で帰国</h3>
+        <a class="map-link" target="_blank" href="https://www.google.com/maps/dir/Used+Book+Cafe+Ririido+Kagoshima/Amu+Plaza+Kagoshima"><span data-i18n="maplink">地図を見る</span></a>
+      </div>
+      <div class="slot"><span class="time" data-i18n="w_morning">午前</span><span class="desc"><span data-i18n="d4s1a">ゆっくりチェックアウト後、</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJkXsdznNlPjURcfau9uGOlno" target="_blank">USED BOOK CAFE リリード</a><span class="mini-badge">💻</span><span data-i18n="d4s1b">で古本に囲まれてコーヒーと読書</span></span><span class="temp">26°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_afternoon">午後</span><span class="desc"><a href="https://www.google.com/maps/place/?q=place_id:ChIJpZ8xe0VnPjURYJkjgA80FrI" target="_blank">アミュプラザ鹿児島</a><span data-i18n="d4s2">で最後のお土産探し、屋上のアミュランからは桜島も見える</span></span><span class="temp">31°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_evening">夕方</span><span class="desc" data-i18n="d4s3">荷物を受け取りリムジンバスで鹿児島空港へ移動、空港で軽く夕食</span><span class="temp">28°C</span></div>
+      <div class="slot"><span class="time" data-i18n="w_night">夜</span><span class="desc" data-i18n="d4s4">夜便で帰国</span><span class="temp">24°C</span></div>
+      <div class="airport-note" data-i18n="airport_note">鹿児島空港へは下記のリムジンバス乗り場から</div>
+      <div class="airport-opt"><span class="tag2" data-i18n="airport_tenmonkan">天文館</span><p data-i18n="airport_opt1">天文館バス乗り場(空港まで約45分)</p></div>
+      <div class="airport-opt"><span class="tag2" data-i18n="airport_chuo">鹿児島中央駅</span><p data-i18n="airport_opt2">鹿児島中央駅バスセンター(空港まで約40分)</p></div>
+      <div class="food-block">
+        <h4><span>🍽</span><span data-i18n="food_title">おすすめ食事処</span></h4>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">Coffeer(コフィア)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJr475NwBfPjURm5bQ_TELJjU">📍</a></div>
+          <p class="food-desc" data-i18n="d4f1">ノワールブレンド+チョコレートケーキ 約1,000円</p>
+        </div>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">天文館むじゃき</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJW32vWKpgPjURchzAaVmH_-E">📍</a></div>
+          <p class="food-desc" data-i18n="d4f2">元祖白熊(かき氷)約950円</p>
+        </div>
+        <div class="food-item">
+          <div class="food-head"><span class="food-name">黒田(Kuroda)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJtXgWk0tnPjUR4Gn_0OEL87M">📍</a></div>
+          <p class="food-desc" data-i18n="d4f3">黒豚ロースかつ定食+ドリンク 約2,200円</p>
+        </div>
+      </div>
+      <div class="memo-wrap">
+        <textarea data-day="day4" data-i18n-ph="memo_ph4" placeholder="4日目メモ"></textarea>
+        <div class="memo-actions">
+          <button type="button" class="memo-save" data-save="day4"><span data-i18n="memo_save_btn">保存</span></button>
+          <span class="memo-status" data-status="day4"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+  <div class="tab-panel" data-panel="weather" hidden>
+  <section>
+    <h2 class="section-title"><span>📅</span><span data-i18n="clima_title">8月・9月・10月の予想気温</span></h2>
+    <p class="hint" data-i18n="clima_hint">과거 평균 기반 참고용 수치예요. 실제 날씨와 다를 수 있어요.</p>
+    <div id="climaContainer">
+      <p class="hint" data-i18n="clima_loading">데이터를 불러오는 중...</p>
+    </div>
+  </section>
+  </div>
+
+  <div class="tab-panel" data-panel="needed" hidden>
+  <section>
+    <h2 class="section-title"><span>🎒</span><span data-i18n="needed_title">クーポンまとめ</span></h2>
+    <div class="fx-box">
+      <div class="food-item" style="border:none; background:transparent; padding:0; margin-bottom:10px;">
+        <div class="food-head">
+          <span class="food-name" data-i18n="needed_donki">ドン・キホーテ割引クーポン</span>
+          <a class="food-pin" target="_blank" href="https://matcha-jp.com/ko/coupon/11" data-i18n="needed_open">開く</a>
+        </div>
+      </div>
+      <div class="food-item" style="border:none; background:transparent; padding:0; margin-bottom:0;">
+        <div class="food-head">
+          <span class="food-name" data-i18n="needed_matsukiyo">マツモトキヨシ割引クーポン</span>
+          <a class="food-pin" target="_blank" href="https://www.klook.com/ko/activity/150096-matsumoto-kiyoshi-duty-free-discount-coupon/" data-i18n="needed_open">開く</a>
+        </div>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:14px;" data-i18n="needed_hint">돈키호테・마츠모토키요시는 텐몬칸/추오역 인근 매장에서 사용 가능. 전국 체인 쿠폰이라 가고시마에서도 그대로 통해요.</p>
+  </section>
+  </div>
+
+  <div class="tab-panel" data-panel="cafe" hidden>
+  <section>
+    <h2 class="section-title"><span>☕</span><span data-i18n="cafelist_title">天文館カフェメニューガイド</span></h2>
+    <p class="hint" data-i18n="cafelist_hint">シグネチャーコーヒー・デザート・地図</p>
+    <div class="fx-box" style="gap:10px;">
+
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">Danken Coffee Tenmonkan</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJqwkvSu9hPjURpvQcGGJLols">📍</a></div>
+        <p class="food-desc" data-i18n="cafe1">🍞 モーニングトースト ☕ カフェラテ</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">Limelight Coffee House</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJZX-tp6pgPjURAS7hEQqzybc">📍</a></div>
+        <p class="food-desc" data-i18n="cafe2">☕ ハンドドリップ・アンバー抽出</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">BLUE BEANS ROASTERY</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJh-MS5UZfPjURzdQdoRXvSn0">📍</a></div>
+        <p class="food-desc" data-i18n="cafe3">☕ キャラメルラテ 🍰 バスクチーズケーキ</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">Coffeer(コフィア)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJr475NwBfPjURm5bQ_TELJjU">📍</a></div>
+        <p class="food-desc" data-i18n="cafe4">☕ ノワールブレンド 🍫 チョコレートケーキ</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">nest coffee classic</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJ4Qk9GwBnPjURj6g-brgStbU">📍</a></div>
+        <p class="food-desc" data-i18n="cafe5">☕ スペシャルティ自家焙煎豆</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">LIMACOFFEE KAGOSHIMA ROASTERY</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJ_cdcQgBnPjUR3FLAWdbCD6E">📍</a></div>
+        <p class="food-desc" data-i18n="cafe6">☕ コーヒースタンド</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">CAFÉSHOP</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJwV46LgBePjURJ1p2g0RFn8w">📍</a></div>
+        <p class="food-desc" data-i18n="cafe7">🥪 サーモンサンド ☕ ブランチ</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">cafe&bar SiSi</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJj_EY4MphPjURaG0O9HteeZw">📍</a></div>
+        <p class="food-desc" data-i18n="cafe8">🍰 ティラミス 🍹 ゆずハイボール</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">cafe&bar Knickerbockers</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJYS9gveFfPjURziSgzIZ9cSA">📍</a></div>
+        <p class="food-desc" data-i18n="cafe9">🍛 キーマカレー ☕ コーヒー</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">USED BOOK CAFE リリード</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJkXsdznNlPjURcfau9uGOlno">📍</a></div>
+        <p class="food-desc" data-i18n="cafe10">📚 古本カフェ ☕ コーヒー 🍞 スコーン</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">books selva</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJrYVdZINfPjUR2asWbhGqIbY">📍</a></div>
+        <p class="food-desc" data-i18n="cafe11">📚 独立系古書店</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">天文館むじゃき</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJW32vWKpgPjURchzAaVmH_-E">📍</a></div>
+        <p class="food-desc" data-i18n="cafe12">🍧 元祖白熊(かき氷)</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">白熊菓庵</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJg-EdiNxhPjURhUOA_CFuQqQ">📍</a></div>
+        <p class="food-desc" data-i18n="cafe13">🍧 白熊かき氷 専門店</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">桜島カフェ SAKURAJIMA CAFE</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJYWBPDQBfPjURUTqp3GOeU0U">📍</a></div>
+        <p class="food-desc" data-i18n="cafe14">🍵 抹茶ソフト ☕ コーヒー</p>
+      </div>
+      <div class="food-item">
+        <div class="food-head"><span class="food-name">Minato Cafe(桜島)</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJ75nh48lfPjURpI8321J4-eg">📍</a></div>
+        <p class="food-desc" data-i18n="cafe15">🍛 噴火カレー 🍨 灰アイス</p>
+      </div>
+      <div class="food-item" style="margin-bottom:0;">
+        <div class="food-head"><span class="food-name">Sakurajima Coffee & Bakery</span><a class="food-pin" target="_blank" href="https://www.google.com/maps/place/?q=place_id:ChIJhV-hg3j2PjUR5Rw6zqO7pwo">📍</a></div>
+        <p class="food-desc" data-i18n="cafe16">☕ カフェモカ 🥧 桜島小みかんパイ</p>
+      </div>
+
+    </div>
+  </section>
+  </div>
+
+  <footer data-i18n="footer_text">鹿児島旅行プラン・天文館テイスト</footer>
+</div>
+
+<script>
+  // ---- i18n ----
+  var DICT = {
+    hero_title: { ko: '주혁이의 2026 하반기 가고시마 여행', ja: 'ジュヒョクの2026年下半期 鹿児島旅行' },
+    hero_badge: { ko: '날짜 미정 · 8~10월 기준', ja: '日程未定・8〜10月基準' },
+    hero_sub: { ko: '3박4일 · 텐몬칸 감성 여행', ja: '3泊4日・天文館テイストの旅' },
+    weather_title: { ko: '오늘 · 내일 · 모레 날씨', ja: '今日・明日・明後日の天気' },
+    weather_loading: { ko: '날씨 데이터를 불러오는 중...', ja: '天気データを読み込み中...' },
+    weather_error: { ko: '날씨 정보를 불러오지 못했어요', ja: '天気情報を取得できませんでした' },
+    clima_title: { ko: '8월·9월·10월 예상 기온', ja: '8月・9月・10月の予想気温' },
+    clima_hint: { ko: '과거 평균 기반 참고용 수치예요. 실제 날씨와 다를 수 있어요.', ja: '過去の平均データに基づく参考値です。実際の天気とは異なる場合があります。' },
+    clima_loading: { ko: '데이터를 불러오는 중...', ja: 'データを読み込み中...' },
+    clima_error: { ko: '데이터를 불러오지 못했어요', ja: 'データを取得できませんでした' },
+    tab_weather: { ko: '날씨', ja: '天気' },
+    w_morning: { ko: '오전', ja: '午前' },
+    w_afternoon: { ko: '오후', ja: '午後' },
+    w_evening: { ko: '저녁', ja: '夕方' },
+    w_night: { ko: '밤', ja: '夜' },
+    fx_title: { ko: '물건가격 계산기 (면세)', ja: '商品価格計算機(免税)' },
+    fx_hint: { ko: '참고용 (100엔 ≈ 931원), 실제 환전 시 수수료로 달라질 수 있어요', ja: '参考用(100円≈931ウォン)、実際の両替時は手数料で変わることがあります' },
+    fx_placeholder: { ko: '물건 가격 (엔화, 세전)', ja: '商品価格(円、税抜)' },
+    fx_toggle_label: { ko: '면세 10% 적용 (세후 가격으로 보기)', ja: '免税10%適用(還付後価格で表示)' },
+    fx_unit: { ko: '원', ja: 'ウォン' },
+    concept_text: { ko: '쇼핑보다는 커피 마시고 책 읽으며 느긋하게 보내는 시간 중심', ja: '買い物よりコーヒーを飲み、本を読みながらゆったり過ごす時間中心' },
+    tag_river: { ko: '해안 산책', ja: '海沿い散歩' },
+    tag_cafe: { ko: '카페 호핑', ja: 'カフェ巡り' },
+    tag_book: { ko: '독립 서점', ja: '独立系書店' },
+    tag_laptop: { ko: '노트북 작업 좋음', ja: 'PC作業に最適' },
+    schedule_title: { ko: '일정표', ja: 'スケジュール' },
+    tab_schedule: { ko: '일정표', ja: 'スケジュール' },
+    tab_needed: { ko: '쿠폰 모음', ja: 'クーポンまとめ' },
+    tab_cafe: { ko: '카페 가이드', ja: 'カフェガイド' },
+    goal2_text: { ko: '하루에 책 1권 읽기', ja: '1日1冊、本を読む' },
+    concept_box_title: { ko: '이번 여행에서 해야 할 일', ja: '今回の旅で大切にしたいこと' },
+    goal3_text: { ko: '앞으로 사업계획 및 타임라인 완성', ja: '今後の事業計画とタイムラインを完成させる' },
+    maplink: { ko: '지도보기', ja: '地図を見る' },
+
+    d1_title: { ko: '1일차 · 도착(오후)', ja: '1日目・到着(午後)' },
+    d1s1a: { ko: '가고시마공항 도착, 리무진버스로 텐몬칸 이동(약 40분), 숙소 체크인 후 아케이드 산책하며 ', ja: '鹿児島空港着、リムジンバスで天文館へ移動(約40分)、宿泊先チェックイン後アーケードを散歩しながら' },
+    d1s1b: { ko: '에서 커피', ja: 'でコーヒー' },
+    d1s2a: { ko: '에서 원조 시로쿠마 하나, 이어서 저녁은 ', ja: 'で元祖白熊をひとつ、続けて夕食は' },
+    d1s2b: { ko: '에서 돈카츠', ja: 'でとんかつ' },
+    d1s3: { ko: '텐몬칸 아케이드 야경 산책, 편의점 맥주 한 캔', ja: '天文館アーケードの夜景散歩、コンビニでビール一缶' },
+    memo_ph1: { ko: '1일차 메모', ja: '1日目メモ' },
+
+    d2_title: { ko: '2일차 · 텐몬칸 카페 데이', ja: '2日目・天文館カフェデー' },
+    d2s1a: { ko: '에서 핸드드립, 가고시마만을 따라 ', ja: 'でハンドドリップ、鹿児島湾沿いを' },
+    d2s1b: { ko: '까지 해안 산책, 사쿠라지마를 바라보며', ja: 'まで海沿い散歩、桜島を眺める' },
+    d2s2a: { ko: ', 헌책방 ', ja: '、古書店' },
+    d2s2b: { ko: ' 구경하고, ', ja: 'を覗いて、' },
+    d2s2c: { ko: '에서 티타임', ja: 'でティータイム' },
+    d2s3: { ko: '동네 이자카야에서 저녁', ja: '近所の居酒屋で夕食' },
+    d2s4: { ko: '에서 고양이 소품에 둘러싸여 한 잔', ja: 'で猫グッズに囲まれて一杯' },
+    memo_ph2: { ko: '2일차 메모', ja: '2日目メモ' },
+
+    d3_title: { ko: '3일차 · 사쿠라지마 데이트립', ja: '3日目・桜島日帰り旅' },
+    d3s1a: { ko: '페리로 사쿠라지마 이동(약 15분), ', ja: 'フェリーで桜島へ(約15分)、' },
+    d3s1b: { ko: '에서 아침 커피', ja: 'で朝のコーヒー' },
+    d3s2a: { ko: '용암 나기사 산책로를 걷다가, ', ja: '溶岩なぎさ遊歩道を散策し、' },
+    d3s2b: { ko: '에서 말차 소프트아이스크림', ja: 'で抹茶ソフト' },
+    d3s3a: { ko: '시내로 돌아와, ', ja: '市内に戻り、' },
+    d3s3b: { ko: '에서 사쿠라지마 저녁노을', ja: 'で桜島の夕景' },
+    d3s4: { ko: '동네 목욕탕·온천에서 몸 풀고 하루 마무리', ja: '近所の銭湯・温泉で温まって一日を締めくくる' },
+    memo_ph3: { ko: '3일차 메모', ja: '3日目メモ' },
+
+    d4_title: { ko: '4일차 · 마지막 날 & 밤 비행기 귀국', ja: '4日目・最終日&夜便で帰国' },
+    d4s1a: { ko: '여유롭게 체크아웃 후, ', ja: 'ゆっくりチェックアウト後、' },
+    d4s1b: { ko: '에서 헌책 구경하며 커피와 독서', ja: 'で古本に囲まれてコーヒーと読書' },
+    d4s2: { ko: '에서 마지막 기념품 쇼핑, 옥상 아뮤런에서는 사쿠라지마도 보여요', ja: 'で最後のお土産探し、屋上のアミュランからは桜島も見える' },
+    d4s3: { ko: '짐 찾고 리무진버스로 가고시마공항 이동, 공항에서 가벼운 저녁', ja: '荷物を受け取りリムジンバスで鹿児島空港へ移動、空港で軽く夕食' },
+    d4s4: { ko: '밤 비행기로 귀국', ja: '夜便で帰国' },
+    memo_ph4: { ko: '4일차 메모', ja: '4日目メモ' },
+
+    airport_note: { ko: '가고시마공항으로는 아래 리무진버스 승차장 중 편한 곳에서', ja: '鹿児島空港へは下記のリムジンバス乗り場から' },
+    airport_tenmonkan: { ko: '텐몬칸', ja: '天文館' },
+    airport_chuo: { ko: '가고시마추오역', ja: '鹿児島中央駅' },
+    airport_opt1: { ko: '텐몬칸 버스 승강장 (공항까지 약 45분)', ja: '天文館バス乗り場(空港まで約45分)' },
+    airport_opt2: { ko: '가고시마추오역 버스센터 (공항까지 약 40분)', ja: '鹿児島中央駅バスセンター(空港まで約40分)' },
+
+    footer_text: { ko: '가고시마 여행 계획 · 텐몬칸 감성', ja: '鹿児島旅行プラン・天文館テイスト' },
+    memo_saved: { ko: '저장됨', ja: '保存済み' },
+    memo_save_btn: { ko: '저장', ja: '保存' },
+
+    food_title: { ko: '추천 식당', ja: 'おすすめ食事処' },
+    d1f1: { ko: '흑돼지 로스카츠 정식 + 음료, 약 2,200엔', ja: '黒豚ロースかつ定食+ドリンク 約2,200円' },
+    d1f2: { ko: '가고시마 라멘 + 음료, 약 1,100엔', ja: '鹿児島ラーメン+ドリンク 約1,100円' },
+    d1f3: { ko: '돈카츠&샤부샤부 정식 + 음료, 약 2,600엔', ja: 'とんかつ&しゃぶしゃぶ定食+ドリンク 約2,600円' },
+    d2f1: { ko: '흑돼지 샤부샤부 + 음료, 약 3,200엔', ja: '黒豚しゃぶしゃぶ+ドリンク 約3,200円' },
+    d2f2: { ko: '돈코츠 라멘 + 음료, 약 1,200엔', ja: '豚骨ラーメン+ドリンク 約1,200円' },
+    d2f3: { ko: '아부라소바 + 음료, 약 1,000엔', ja: '油そば+ドリンク 約1,000円' },
+    d3f1: { ko: '사쿠라지마 분화 카레 + 음료, 약 1,500엔', ja: '桜島噴火カレー+ドリンク 約1,500円' },
+    d3f2: { ko: '돈카츠&샤부샤부 정식 + 음료, 약 2,600엔', ja: 'とんかつ&しゃぶしゃぶ定食+ドリンク 約2,600円' },
+    d3f3: { ko: '가고시마 라멘 + 음료, 약 1,100엔', ja: '鹿児島ラーメン+ドリンク 約1,100円' },
+    d4f1: { ko: '노아 블렌드+초콜릿 케이크, 약 1,000엔', ja: 'ノワールブレンド+チョコレートケーキ 約1,000円' },
+    d4f2: { ko: '원조 시로쿠마(빙수) 약 950엔', ja: '元祖白熊(かき氷)約950円' },
+    d4f3: { ko: '흑돼지 로스카츠 정식 + 음료, 약 2,200엔', ja: '黒豚ロースかつ定食+ドリンク 約2,200円' },
+
+    needed_title: { ko: '쿠폰 모음', ja: 'クーポンまとめ' },
+    needed_donki: { ko: '돈키호테 할인쿠폰', ja: 'ドン・キホーテ割引クーポン' },
+    needed_matsukiyo: { ko: '마츠모토 키요시 할인쿠폰', ja: 'マツモトキヨシ割引クーポン' },
+    needed_hint: { ko: '돈키호테・마츠모토키요시는 텐몬칸/추오역 인근 매장에서 사용 가능. 전국 체인 쿠폰이라 가고시마에서도 그대로 통해요.', ja: 'ドン・キホーテ、マツモトキヨシは天文館・中央駅周辺の店舗で利用可能。全国チェーンのクーポンなので鹿児島でもそのまま使えます。' },
+
+    cafelist_title: { ko: '텐몬칸 카페 메뉴 가이드', ja: '天文館カフェメニューガイド' },
+    cafelist_hint: { ko: '시그니처 커피 · 디저트 · 지도', ja: 'シグネチャーコーヒー・デザート・地図' },
+    cafe1: { ko: '🍞 모닝 토스트 ☕ 카페라떼', ja: '🍞 モーニングトースト ☕ カフェラテ' },
+    cafe2: { ko: '☕ 핸드드립 · 앰버 추출', ja: '☕ ハンドドリップ・アンバー抽出' },
+    cafe3: { ko: '☕ 카라멜라떼 🍰 바스크 치즈케이크', ja: '☕ キャラメルラテ 🍰 バスクチーズケーキ' },
+    cafe4: { ko: '☕ 노아 블렌드 🍫 초콜릿 케이크', ja: '☕ ノワールブレンド 🍫 チョコレートケーキ' },
+    cafe5: { ko: '☕ 스페셜티 자가배전 원두', ja: '☕ スペシャルティ自家焙煎豆' },
+    cafe6: { ko: '☕ 커피 스탠드', ja: '☕ コーヒースタンド' },
+    cafe7: { ko: '🥪 연어 샌드위치 ☕ 브런치', ja: '🥪 サーモンサンド ☕ ブランチ' },
+    cafe8: { ko: '🍰 티라미수 🍹 유자 하이볼', ja: '🍰 ティラミス 🍹 ゆずハイボール' },
+    cafe9: { ko: '🍛 키마카레 ☕ 커피', ja: '🍛 キーマカレー ☕ コーヒー' },
+    cafe10: { ko: '📚 헌책방 카페 ☕ 커피 🍞 스콘', ja: '📚 古本カフェ ☕ コーヒー 🍞 スコーン' },
+    cafe11: { ko: '📚 독립계 헌책방', ja: '📚 独立系古書店' },
+    cafe12: { ko: '🍧 원조 시로쿠마(빙수)', ja: '🍧 元祖白熊(かき氷)' },
+    cafe13: { ko: '🍧 시로쿠마 빙수 전문점', ja: '🍧 白熊かき氷 専門店' },
+    cafe14: { ko: '🍵 말차 소프트아이스크림 ☕ 커피', ja: '🍵 抹茶ソフト ☕ コーヒー' },
+    cafe15: { ko: '🍛 분화 카레 🍨 화산재 아이스크림', ja: '🍛 噴火カレー 🍨 灰アイス' },
+    cafe16: { ko: '☕ 카페모카 🥧 사쿠라지마 소귤 파이', ja: '☕ カフェモカ 🥧 桜島小みかんパイ' },
+    needed_open: { ko: '열기', ja: '開く' }
+  };
+
+  var currentLang = 'ja';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (DICT[key]) el.textContent = DICT[key][lang];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-ph');
+      if (DICT[key]) el.setAttribute('placeholder', DICT[key][lang]);
+    });
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    updateFx();
+    if (weatherData) renderWeather(weatherData);
+    if (climaData) renderClimatology(climaData);
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { applyLang(btn.dataset.lang); });
+  });
+
+  // ---- Tabs ----
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.tab === target); });
+      document.querySelectorAll('.tab-panel').forEach(function (p) { p.hidden = (p.dataset.panel !== target); });
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+  });
+
+  // ---- Live weather (today / tomorrow / day after tomorrow) ----
+  // weather.json is written by a GitHub Action (.github/workflows/update-weather.yml)
+  // once a day at 04:00 KST, using the free Open-Meteo API. This keeps the page
+  // fully static (works on GitHub Pages) while still showing near-live data.
+  var weatherData = null;
+
+  function tokyoDateStr(offsetDays) {
+    var d = new Date(Date.now() + offsetDays * 86400000);
+    return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(d); // YYYY-MM-DD
+  }
+
+  function dayLabel(dateStr) {
+    if (dateStr === tokyoDateStr(0)) return currentLang === 'ko' ? '오늘' : '今日';
+    if (dateStr === tokyoDateStr(1)) return currentLang === 'ko' ? '내일' : '明日';
+    if (dateStr === tokyoDateStr(2)) return currentLang === 'ko' ? '모레' : '明後日';
+    var parts = dateStr.split('-');
+    return parseInt(parts[1], 10) + '/' + parseInt(parts[2], 10);
+  }
+
+  function renderWeather(data) {
+    var grid = document.getElementById('weatherLiveGrid');
+    var hintEl = document.getElementById('weatherUpdatedHint');
+    if (!grid) return;
+    grid.innerHTML = '';
+    (data.days || []).slice(0, 3).forEach(function (day) {
+      var desc = currentLang === 'ko' ? day.desc_ko : day.desc_ja;
+      var card = document.createElement('div');
+      card.className = 'weather-card';
+      card.innerHTML =
+        '<span class="icon">' + (day.icon || '🌤') + '</span>' +
+        '<div>' +
+          '<p class="label">' + dayLabel(day.date) + '</p>' +
+          '<p class="temp">' + day.high + '° / ' + day.low + '°</p>' +
+          '<p class="desc">' + (desc || '') + '</p>' +
+        '</div>';
+      grid.appendChild(card);
+    });
+    if (hintEl) {
+      if (data.updated_at) {
+        var updated = new Date(data.updated_at);
+        var str = updated.toLocaleString(currentLang === 'ko' ? 'ko-KR' : 'ja-JP', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        hintEl.textContent = (currentLang === 'ko' ? '업데이트: ' : '更新: ') + str + (currentLang === 'ko' ? ' · 매일 새벽 4시 자동 갱신' : ' · 毎日AM4時に自動更新');
+      } else {
+        hintEl.textContent = currentLang === 'ko' ? '예시 데이터 (첫 자동 갱신 대기 중)' : 'サンプルデータ(初回自動更新待ち)';
+      }
+    }
+  }
+
+  fetch('./weather.json', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error('fetch failed'); return r.json(); })
+    .then(function (data) { weatherData = data; renderWeather(data); })
+    .catch(function () {
+      var hintEl = document.getElementById('weatherUpdatedHint');
+      if (hintEl) hintEl.textContent = DICT.weather_error[currentLang];
+    });
+
+  // ---- Climatology reference tab (8/9/10월 예상 기온) ----
+  var climaData = null;
+
+  function renderClimatology(data) {
+    var container = document.getElementById('climaContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    var byMonth = {};
+    data.forEach(function (d) {
+      if (!byMonth[d.month]) byMonth[d.month] = [];
+      byMonth[d.month].push(d);
+    });
+    var monthNames = {
+      ko: { 8: '8월', 9: '9월', 10: '10월' },
+      ja: { 8: '8月', 9: '9月', 10: '10月' }
+    };
+    [8, 9, 10].forEach(function (m) {
+      if (!byMonth[m]) return;
+      var label = document.createElement('p');
+      label.className = 'month-label';
+      label.textContent = monthNames[currentLang][m];
+      container.appendChild(label);
+      var grid = document.createElement('div');
+      grid.className = 'clima-grid';
+      byMonth[m].forEach(function (d) {
+        var cell = document.createElement('div');
+        cell.className = 'clima-cell';
+        cell.innerHTML =
+          '<span class="clima-date">' + d.month + '/' + d.day + '</span>' +
+          '<span class="clima-temp"><span class="hi">' + d.high + '°</span> / <span class="lo">' + d.low + '°</span></span>';
+        grid.appendChild(cell);
+      });
+      container.appendChild(grid);
+    });
+  }
+
+  fetch('./climatology.json', { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error('fetch failed'); return r.json(); })
+    .then(function (data) { climaData = data; renderClimatology(data); })
+    .catch(function () {
+      var container = document.getElementById('climaContainer');
+      if (container) container.innerHTML = '<p class="hint">' + DICT.clima_error[currentLang] + '</p>';
+    });
+
+  // ---- Goal checklist persistence ----
+  var GOAL_PREFIX = 'kagoshima-trip-goal-';
+  document.querySelectorAll('.goal-check').forEach(function (cb) {
+    var key = GOAL_PREFIX + cb.dataset.goal;
+    var label = cb.closest('.goal-item');
+    try {
+      if (localStorage.getItem(key) === '1') { cb.checked = true; label.classList.add('done'); }
+    } catch (e) {}
+    cb.addEventListener('change', function () {
+      label.classList.toggle('done', cb.checked);
+      try { localStorage.setItem(key, cb.checked ? '1' : '0'); } catch (e) {}
+    });
+  });
+
+  // ---- Currency: JPY item price -> KRW, with optional 10% tax refund ----
+  var RATE = 9.31; // 1 JPY ≈ 9.31 KRW (reference only)
+  var jpyInput = document.getElementById('jpyInput');
+  var krwOutput = document.getElementById('krwOutput');
+  var taxToggle = document.getElementById('taxToggle');
+
+  function updateFx() {
+    var v = parseFloat(jpyInput.value) || 0;
+    if (taxToggle.checked) v = v * 0.9;
+    krwOutput.textContent = Math.round(v * RATE).toLocaleString();
+  }
+  jpyInput.addEventListener('input', updateFx);
+  taxToggle.addEventListener('change', updateFx);
+
+  // ---- Memo persistence via localStorage (explicit Save button) ----
+  var STORAGE_PREFIX = 'kagoshima-trip-memo-';
+  var textareas = document.querySelectorAll('textarea[data-day]');
+  textareas.forEach(function (ta) {
+    var key = STORAGE_PREFIX + ta.dataset.day;
+    var statusEl = document.querySelector('[data-status="' + ta.dataset.day + '"]');
+    try {
+      var saved = localStorage.getItem(key);
+      if (saved) ta.value = saved;
+    } catch (e) {}
+
+    ta.addEventListener('input', function () {
+      if (statusEl) statusEl.textContent = '';
+    });
+  });
+
+  document.querySelectorAll('.memo-save').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var day = btn.dataset.save;
+      var ta = document.querySelector('textarea[data-day="' + day + '"]');
+      var statusEl = document.querySelector('[data-status="' + day + '"]');
+      try {
+        localStorage.setItem(STORAGE_PREFIX + day, ta.value);
+        if (statusEl) statusEl.textContent = DICT.memo_saved[currentLang];
+      } catch (e) {}
+    });
+  });
+
+  applyLang('ja');
+</script>
+</body>
+</html>
