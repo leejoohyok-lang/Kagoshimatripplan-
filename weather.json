@@ -1,0 +1,11 @@
+{
+  "updated_at": null,
+  "location": "가고시마",
+  "source": "open-meteo.com",
+  "note": "이 파일은 예시 값입니다. GitHub Actions가 처음 실행되면(update-weather.yml) 실제 예보로 자동 교체됩니다.",
+  "days": [
+    { "date": "2026-08-01", "weathercode": 1, "icon": "🌤", "desc_ko": "대체로 맑음", "desc_ja": "概ね晴れ", "high": 32, "low": 26 },
+    { "date": "2026-08-02", "weathercode": 2, "icon": "⛅", "desc_ko": "구름 조금", "desc_ja": "所により曇り", "high": 31, "low": 26 },
+    { "date": "2026-08-03", "weathercode": 80, "icon": "🌦", "desc_ko": "소나기", "desc_ja": "にわか雨", "high": 30, "low": 25 }
+  ]
+}
